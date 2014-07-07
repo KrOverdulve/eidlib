@@ -21,6 +21,7 @@
  */
 package be.belgium.eid.eidcommon;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -92,15 +93,20 @@ public class FormattedTLV extends TLV {
 	 * 
 	 * @param tag
 	 *            is the tag to identify the data to return
-	 * @return the data associated with the given tag
+	 * @return the data associated with the given tag or null if an error occurred
 	 */
 	public String stringData(final byte tag) {
-		if (super.tagData(tag) == null) {
-			return null;
-		} else {
-			return new String(super.tagData(tag));
+		String result = null;
+		if (super.tagData(tag) != null) {
+			try {
+				result = new String(super.tagData(tag), "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// Shouldn't occur as UTF-8 should be supported everywhere
+				throw new RuntimeException(e);
+			}
 		}
 
+		return result;
 	}
 
 	/**
