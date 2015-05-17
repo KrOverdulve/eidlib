@@ -1,3 +1,5 @@
+*** NOTE: I am no longer maintaining this project. *** 
+
 # Native Java e-ID library
 
 The e-ID library is a user-friendly Java library to perform operations on the Belgian electronic identity card.
